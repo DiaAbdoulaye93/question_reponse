@@ -10,7 +10,7 @@ class SignupController extends BaseController
 
     public function index()
     {
-       
+
         helper(['form']);
         $data = [];
         echo view('signup', $data);
@@ -18,22 +18,63 @@ class SignupController extends BaseController
 
     public function store()
     {
-       
-        // helper(['form']);
-        // $rules = [
-        //     'nom'          => 'required|min_length[2]|max_length[50]',
-        //     'prenom'          => 'required|min_length[2]|max_length[50]',
-        //     'telephone'          => 'required|min_length[2]|max_length[50]',
-        //     'username'         => 'required|min_length[4]|max_length[100]|is_unique[user.username]',
-        //     'password'      => 'required|min_length[4]|max_length[50]',
-        //     'user_type'      => 'required|min_length[4]|max_length[50]',
-        //     'confirmpassword'  => 'matches[password]'
-        // ];
-       
-        // if ($this->validate($rules)) {
-           
+
+        helper(['form']);
+        $rules = [
+            'nom' =>
+            [
+                'rules' => 'required|min_length[2]|max_length[50]',
+                'errors' => [
+                    'required' => 'Le nom est un champ obligatoire', 'min_length' => 'Le nom doit etre composé au minimum 2 lettres', 'max_length' => 'Le nom ne doit pas compter plus de 50 caractéres'
+                ]
+            ],
+            'prenom' =>
+            [
+                'rules' => 'required|min_length[2]|max_length[50]',
+                'errors' => [
+                    'required' => 'Le prenom est un champ obligatoire', 'min_length' => 'Le prenom doit etre composé au minimum 2 lettres', 'max_length' => 'Le prenom ne doit pas compter plus de 50 caractéres'
+                ]
+            ],
+            'telephone' =>
+            [
+                'rules' => 'required|min_length[9]|max_length[13]',
+                'errors' => [
+                    'required' => 'Le telephone est un champ obligatoire', 'min_length' => 'Le telephone doit etre composé au minimum 9 caractères', 'max_length' => 'Le telephone ne doit pas compter plus de 13 caractères'
+                ]
+            ],
+            'username' =>
+            [
+                'rules' => 'required|min_length[4]|max_length[100]|is_unique[user.username]',
+                'errors' => [
+                    'required' => 'Le nom d\'utilisateur est un champ obligatoire', 'min_length' => 'Le nom d\'utilisateur doit etre composé au minimum de 4 caractères', 'max_length' => 'Le nom d\'utilisateur ne doit pas compter plus de 100 caractères','is_unique' => 'Ce nom d\'utilisateur existe deja'
+                ]
+            ],
+            'password' =>
+            [
+                'rules' => 'required|min_length[8]|max_length[16]',
+                'errors' => [
+                    'required' => 'Le mot de pass est un champ obligatoire', 'min_length' => 'Le un mot de pass sécurisé doit avoir au moins 8 cacractéres', 'max_length' => 'Le mot de passe ne doit pas compter plus de 16 caractères','is_unique' => 'Ce nom d\'utilisateur existe deja'
+                ]
+            ],
+            'user_type' =>
+            [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Veuillez choisir un profil'
+                ]
+            ],
+            'confirmpassword' =>
+            [
+                'rules' => 'matches[password]',
+                'errors' => [
+                    'matches' => 'Echec de confirmation du mot de pass'
+                ]
+            ]
+        ];
+
+        if ($this->validate($rules)) {
+
             $userModel = new UserModel();
-        
             $data = [
                 'nom'     => $this->request->getVar('nom'),
                 'prenom'    => $this->request->getVar('prenom'),
@@ -42,13 +83,13 @@ class SignupController extends BaseController
                 'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
                 'user_type'    => $this->request->getVar('user_type'),
             ];
-             
-         
+
+
             $userModel->insert($data);
             return redirect()->to('/signin');
-        // } else {
-        //     $data['validation'] = $this->validator;
-        //     echo view('signup', $data);
-        // }
+        } else {
+            $data['validation'] = $this->validator;
+            echo view('signup', $data);
+        }
     }
 }
