@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\ProfilModel;
 
 class SignupController extends BaseController
 {
@@ -13,13 +14,17 @@ class SignupController extends BaseController
 
         helper(['form']);
         $data = [];
-        echo view('signup', $data);
+        $profilModel= new ProfilModel();
+        $profil['profil'] = $profilModel->findAll();
+        echo view('signup', $profil);
     }
 
     public function store()
     {
 
-        helper(['form']);
+         helper(['form']);
+       
+
         $rules = [
             'nom' =>
             [
@@ -56,24 +61,24 @@ class SignupController extends BaseController
                     'required' => 'Le mot de pass est un champ obligatoire', 'min_length' => 'Le un mot de pass sécurisé doit avoir au moins 8 cacractéres', 'max_length' => 'Le mot de passe ne doit pas compter plus de 16 caractères','is_unique' => 'Ce nom d\'utilisateur existe deja'
                 ]
             ],
-            'user_type' =>
-            [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Veuillez choisir un profil'
-                ]
-            ],
             'confirmpassword' =>
             [
                 'rules' => 'matches[password]',
                 'errors' => [
                     'matches' => 'Echec de confirmation du mot de pass'
                 ]
-            ]
+                ],
+                'user_type' =>
+                [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Merci de choisir un profil',
+                    ]
+                ],
         ];
-
+      
         if ($this->validate($rules)) {
-
+      
             $userModel = new UserModel();
             $data = [
                 'nom'     => $this->request->getVar('nom'),
@@ -83,8 +88,7 @@ class SignupController extends BaseController
                 'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
                 'user_type'    => $this->request->getVar('user_type'),
             ];
-
-
+        
             $userModel->insert($data);
             return redirect()->to('/signin');
         } else {
