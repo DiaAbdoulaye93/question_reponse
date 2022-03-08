@@ -8,7 +8,7 @@ class SigninController extends BaseController
     public function index()
     {
         helper(['form']);
-        echo view('signin');
+        echo view('users/signin');
     } 
   
     public function loginAuth()
@@ -31,7 +31,7 @@ class SigninController extends BaseController
                     'isLoggedIn' => TRUE
                 ];
                 $session->set($ses_data);
-                return redirect()->to('/profile');
+                return redirect()->to('/dashboard');
             
             }else{
                 $session->setFlashdata('msg', 'mot de pass incorrect');

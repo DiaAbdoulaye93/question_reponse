@@ -14,17 +14,15 @@ class SignupController extends BaseController
 
         helper(['form']);
         $data = [];
-        $profilModel= new ProfilModel();
+        $profilModel = new ProfilModel();
         $profil['profil'] = $profilModel->findAll();
-        echo view('signup', $profil);
+        echo view('users/signup', $profil);
     }
 
     public function store()
     {
 
-         helper(['form']);
-       
-
+        helper(['form']);
         $rules = [
             'nom' =>
             [
@@ -33,7 +31,7 @@ class SignupController extends BaseController
                     'required' => 'Le nom est un champ obligatoire', 'min_length' => 'Le nom doit etre composé au minimum 2 lettres', 'max_length' => 'Le nom ne doit pas compter plus de 50 caractéres'
                 ]
             ],
-            'prenom' =>
+            'prenom' => 
             [
                 'rules' => 'required|min_length[2]|max_length[50]',
                 'errors' => [
@@ -51,14 +49,14 @@ class SignupController extends BaseController
             [
                 'rules' => 'required|min_length[4]|max_length[100]|is_unique[user.username]',
                 'errors' => [
-                    'required' => 'Le nom d\'utilisateur est un champ obligatoire', 'min_length' => 'Le nom d\'utilisateur doit etre composé au minimum de 4 caractères', 'max_length' => 'Le nom d\'utilisateur ne doit pas compter plus de 100 caractères','is_unique' => 'Ce nom d\'utilisateur existe deja'
+                    'required' => 'Le nom d\'utilisateur est un champ obligatoire', 'min_length' => 'Le nom d\'utilisateur doit etre composé au minimum de 4 caractères', 'max_length' => 'Le nom d\'utilisateur ne doit pas compter plus de 100 caractères', 'is_unique' => 'Ce nom d\'utilisateur existe deja'
                 ]
             ],
             'password' =>
             [
                 'rules' => 'required|min_length[8]|max_length[16]',
                 'errors' => [
-                    'required' => 'Le mot de pass est un champ obligatoire', 'min_length' => 'Le un mot de pass sécurisé doit avoir au moins 8 cacractéres', 'max_length' => 'Le mot de passe ne doit pas compter plus de 16 caractères','is_unique' => 'Ce nom d\'utilisateur existe deja'
+                    'required' => 'Le mot de pass est un champ obligatoire', 'min_length' => 'Le un mot de pass sécurisé doit avoir au moins 8 cacractéres', 'max_length' => 'Le mot de passe ne doit pas compter plus de 16 caractères', 'is_unique' => 'Ce nom d\'utilisateur existe deja'
                 ]
             ],
             'confirmpassword' =>
@@ -67,18 +65,24 @@ class SignupController extends BaseController
                 'errors' => [
                     'matches' => 'Echec de confirmation du mot de pass'
                 ]
-                ],
-                'user_type' =>
-                [
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => 'Merci de choisir un profil',
-                    ]
-                ],
+            ],
+            'user_type' =>
+            [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Merci de choisir un profil',
+                ]
+            ],
         ];
-        $file = $this->request->getFile('avatar');  
+        $file = $this->request->getFile('avatar');
+        print_r($_FILES);
+        die;
         if ($this->validate($rules)) {
-            $newName= $this->request->getVar('username').'Avatar'; 
+            $newName = $this->request->getVar('username') . 'Avatar';
+            $file['allowed_types'] = 'gif|jpg|png';
+            $file['max_size'] = '100';
+            $file['max_width'] = '1024';
+            $file['max_height'] = '768';
             $file->move('assets/images/users', $newName);
             $userModel = new UserModel();
             $data = [
@@ -90,7 +94,7 @@ class SignupController extends BaseController
                 'user_type'    => $this->request->getVar('user_type'),
                 'avatar' => $newName,
             ];
-         
+
             // if($_FILES['avatar']['name']!=""){
 
             //     //load library
@@ -101,14 +105,14 @@ class SignupController extends BaseController
             //     $config['max_width'] = '1024';
             //     $config['max_height'] = '768';
             //     $config['overwrite'] = FALSE; //If the file exists it will be saved with a progressive number appended
-                
+
             //     $this->load->library('avatar');
             //     die;
             //     //Initialize
             //     $this->upload->initialize($config);
             //     //Upload file
             //     if( ! $this->upload->do_upload("file")){
-                
+
             //         //echo the errors
             //         echo $this->upload->display_errors();
             //     }
@@ -118,12 +122,12 @@ class SignupController extends BaseController
             //      die;
             //     //Save the file name into the db
             //     }
-           
+
             $userModel->insert($data);
             return redirect()->to('/signin');
         } else {
             $data['validation'] = $this->validator;
-            echo view('signup', $data);
+            echo view('users/signup', $data);
         }
     }
 }
