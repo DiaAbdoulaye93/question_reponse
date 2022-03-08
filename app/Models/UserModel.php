@@ -20,7 +20,8 @@ class UserModel extends Model
         'telephone',
         'username',
         'password',
-        'user_type'
+        'user_type',
+        'avatar',
     ];
 
     // Dates

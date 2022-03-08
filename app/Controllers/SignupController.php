@@ -76,9 +76,10 @@ class SignupController extends BaseController
                     ]
                 ],
         ];
-      
+        $file = $this->request->getFile('avatar');  
         if ($this->validate($rules)) {
-      
+            $newName= $this->request->getVar('username').'Avatar'; 
+            $file->move('assets/images/users', $newName);
             $userModel = new UserModel();
             $data = [
                 'nom'     => $this->request->getVar('nom'),
@@ -87,8 +88,37 @@ class SignupController extends BaseController
                 'username'    => $this->request->getVar('username'),
                 'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
                 'user_type'    => $this->request->getVar('user_type'),
+                'avatar' => $newName,
             ];
-        
+         
+            // if($_FILES['avatar']['name']!=""){
+
+            //     //load library
+            //     //Set the config
+            //     $config['upload_path'] = './assets/users/images'; //Use relative or absolute path
+            //     $config['allowed_types'] = 'gif|jpg|png'; 
+            //     $config['max_size'] = '100';
+            //     $config['max_width'] = '1024';
+            //     $config['max_height'] = '768';
+            //     $config['overwrite'] = FALSE; //If the file exists it will be saved with a progressive number appended
+                
+            //     $this->load->library('avatar');
+            //     die;
+            //     //Initialize
+            //     $this->upload->initialize($config);
+            //     //Upload file
+            //     if( ! $this->upload->do_upload("file")){
+                
+            //         //echo the errors
+            //         echo $this->upload->display_errors();
+            //     }
+            //     //If the upload success
+            //     $file_name = $this->upload->file_name;
+            //      echo $file_name;
+            //      die;
+            //     //Save the file name into the db
+            //     }
+           
             $userModel->insert($data);
             return redirect()->to('/signin');
         } else {

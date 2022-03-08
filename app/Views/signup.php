@@ -16,7 +16,7 @@
                 <?php $validation =  \Config\Services::validation();
                 $profil = model('ProfilModel')->findAll();
                 ?>
-                <form action="<?php echo base_url(); ?>/SignupController/store" method="post">
+                <form action="<?php echo base_url(); ?>/SignupController/store" method="post" enctype="multipart/form-data">
                     <div class="form-group mb-3 ">
 
                         <input type="text" name="nom" placeholder="Votre nom" value="<?= set_value('nom') ?>" class="form-control shadow shadow <?php if ($validation->getError('nom')) : ?>is-invalid<?php endif ?>">
@@ -58,9 +58,15 @@
                         </select>
                         <div class="invalid-feedback"><?= $validation->getError('user_type') ?></div>
                     </div>
+                    <div class="form-group mb-3">
+                        <input type="file" name="avatar" placeholder="user_avtar" class="form-control shadow">
+                        
+
+                    </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-success">Inscription</button>
                     </div>
+
                 </form>
             </div>
         </div>
