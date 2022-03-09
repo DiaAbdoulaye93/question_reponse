@@ -10,7 +10,7 @@
     ?><script>
         $(function() {
             <?php if (session()->has("success")) { ?>
-                Swal.fire({
+                Swal.fire({ 
                     icon: 'success',
                     title: 'Great!',
                     text: '<?= session("success") ?>'
@@ -35,12 +35,10 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered" id="userliste">
-                    <thead>
+                <table class="table table-hover table-nowrap" id="userliste">
+                    <thead class="table-success">
                         <tr>
-
-                            <th>Nom</th>
-                            <th>Prenom</th>
+                            <th>Utilisateur</th>
                             <th>Telephone</th>
                             <th>Username</th>
                             <th>Action</th>
@@ -52,9 +50,8 @@
                             foreach ($user as $user) {
                                 echo '
                                 <tr>
-                                 
-                                    <td>' . $user["nom"] . '</td>
-                                    <td>' . $user["prenom"] . '</td>
+                                <td> <img src="assets/images/users/' . $user["avatar"] . '"    class="avatar avatar-lg rounded-circle me-2" >
+                                    <span class="text-heading font-semibold ml-6">' . $user["nom"] .' '. $user["prenom"] . '</span></td>
                                     <td>' . $user["telephone"] . '</td>
                                     <td>' . $user["username"] . '</td>
                                     <td> <a href="/edituser?id=' . $user['id'] . '"  class="btn btn-outline-success btn-sm"><i class="fa fa-pencil"></i></a>

@@ -75,14 +75,13 @@ class SignupController extends BaseController
             ],
         ];
         $file = $this->request->getFile('avatar');
-        print_r($_FILES);
-        die;
+      
         if ($this->validate($rules)) {
             $newName = $this->request->getVar('username') . 'Avatar';
-            $file['allowed_types'] = 'gif|jpg|png';
-            $file['max_size'] = '100';
-            $file['max_width'] = '1024';
-            $file['max_height'] = '768';
+            // $file['allowed_types'] = 'gif|jpg|png';
+            // $file['max_size'] = '100';
+            // $file['max_width'] = '1024';
+            // $file['max_height'] = '768';
             $file->move('assets/images/users', $newName);
             $userModel = new UserModel();
             $data = [
