@@ -16,12 +16,20 @@ class SignupController extends BaseController
         $data = [];
         $profilModel = new ProfilModel();
         $profil['profil'] = $profilModel->findAll();
+ 
         echo view('users/signup', $profil);
     }
-
-    public function store()
+    public function test()
     {
 
+       
+        return view('users/test_view');
+        // echo view('users/signup', $profil);
+    }
+   
+    public function store()
+    {
+        
         helper(['form']);
         $rules = [
             'nom' =>
@@ -129,4 +137,9 @@ class SignupController extends BaseController
             echo view('users/signup', $data);
         }
     }
+    function method(){
+       
+        return view('users/signup');//This will load your view page to the div element 
+     
+     }
 }
