@@ -1,13 +1,13 @@
-<div class="content bg-light">
+<div class="content p-5">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
           <img src="assets/images/logginbg.svg" alt="Image" class="img-fluid">
         </div>
-        <div class="col-md-6 contents elevation">
+        <div class="col-md-6 contents">
           <div class="row justify-content-center">
             <div class="col-md-8">
-              <div class="mb-6">
+              <div class="mb-6 text-center text-success">
               <h3>Authentification</h3>
             </div>
             <?php if (session()->getFlashdata('msg')) : ?>
@@ -22,7 +22,7 @@
 
               </div>
               <div class="form-group last mb-4">
-                <label for="password">Password</label>
+                <label for="password">Mot de pass</label>
                 <input type="password" name="password" placeholder="Password" class="form-control">
                 
               </div>

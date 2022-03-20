@@ -1,29 +1,31 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+
 class SigninController extends BaseController
 {
     public function index()
     {
         helper(['form']);
         echo view('users/signin');
-    } 
-  
+    }
+
     public function loginAuth()
     {
         $session = session();
         $userModel = new UserModel();
         $email = $this->request->getVar('username');
         $password = $this->request->getVar('password');
-        
+
         $data = $userModel->where('username', $email)->first();
-        
-        if($data){
+
+        if ($data) {
             $pass = $data['password'];
             $authenticatePassword = password_verify($password, $pass);
-            if($authenticatePassword){
+            if ($authenticatePassword) {
                 $ses_data = [
                     'id' => $data['id'],
                     'nom' => $data['nom'],
@@ -31,14 +33,13 @@ class SigninController extends BaseController
                     'isLoggedIn' => TRUE
                 ];
                 $session->set($ses_data);
-             
-                return redirect()->to('/dashboard');
-            
-            }else{
+
+                return redirect()->to('/index');
+            } else {
                 $session->setFlashdata('msg', 'mot de pass incorrect');
                 return redirect()->to('/signin');
             }
-        }else{
+        } else {
             $session->setFlashdata('msg', 'nom d\'utilisateur incorrect');
             return redirect()->to('/signin');
         }
@@ -46,11 +47,10 @@ class SigninController extends BaseController
 
     public function logout()
     {
-        echo 'here';
-        die;
-        $this->session->unset_userdata(array('username','id'));
-        $this->session->sess_destroy();
-        redirect("/");
+        $session = \Config\Services::session();
+      
 
+        session_destroy();
+        return redirect()->to('/index');
     }
 }

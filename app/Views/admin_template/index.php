@@ -45,9 +45,8 @@
 </head>
 <body style="min-height:100px">
 <?php
- $session = \Config\Services::session();
+$session = \Config\Services::session();
     if(isset($_SESSION['isLoggedIn'])){
-        session_destroy();
         echo view('admin_template/side_navbar');
         $this->renderSection("content");
     } 
