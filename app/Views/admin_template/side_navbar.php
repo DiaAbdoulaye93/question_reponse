@@ -48,7 +48,14 @@
                             <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="mdi mdi-window-close"></i></a>
                         </form>
                     </li>
+                  
                 </ul>
+                <form action="<?= site_url('/logout') ?>" method="post">
+                        <a href="" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            <button type="submit" class="btn form-control" style="background-color: #4ebfa6;">deconnection</button>
+                        </a>
+                    </form>
                 <!-- ============================================================== -->
                 <!-- Right side toggle and nav items -->
                 <!-- ============================================================== -->

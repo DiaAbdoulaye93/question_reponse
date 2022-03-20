@@ -7,6 +7,7 @@
     <?php
 
     $session = \Config\Services::session();
+   
     ?><script>
         $(function() {
             <?php if (session()->has("success")) { ?>
@@ -68,7 +69,7 @@
                     <div class="float-right"><?php
 
                                                 if ($pagination_link) {
-                                                    $pagination_link->setPath('liste');
+                                                    $pagination_link->setPath('users');
 
                                                     echo $pagination_link->links();
                                                 }
@@ -98,7 +99,7 @@
         $('.btn').click(function() {
    
            //element to be click to load the page in the div
-             $('.modal-body').load('SignupController/method');
+             $('.modal-body').load('SignupController/index');
 
         });
     </script>

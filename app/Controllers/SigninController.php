@@ -31,6 +31,7 @@ class SigninController extends BaseController
                     'isLoggedIn' => TRUE
                 ];
                 $session->set($ses_data);
+             
                 return redirect()->to('/dashboard');
             
             }else{
@@ -41,5 +42,15 @@ class SigninController extends BaseController
             $session->setFlashdata('msg', 'nom d\'utilisateur incorrect');
             return redirect()->to('/signin');
         }
+    }
+
+    public function logout()
+    {
+        echo 'here';
+        die;
+        $this->session->unset_userdata(array('username','id'));
+        $this->session->sess_destroy();
+        redirect("/");
+
     }
 }

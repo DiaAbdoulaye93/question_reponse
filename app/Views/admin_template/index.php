@@ -43,9 +43,18 @@
         }
     </style>
 </head>
-<body style="min-height:100ox">
-    <?php echo view('admin_template/side_navbar') ?>
-    <?= $this->renderSection("content");
+<body style="min-height:100px">
+<?php
+ $session = \Config\Services::session();
+    if(isset($_SESSION['isLoggedIn'])){
+        echo view('admin_template/side_navbar');
+        $this->renderSection("content");
+    } 
+    else{
+        helper('form');
+        echo view('users/signin');
+    }
+   
        helper('form'); ?>
     <script src="assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
