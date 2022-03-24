@@ -16,13 +16,13 @@ class SignupController extends BaseController
         $data = [];
         $profilModel = new ProfilModel();
         $profil['profil'] = $profilModel->findAll();
- 
+
         echo view('users/signup', $profil);
     }
-  
+
     public function store()
     {
-      
+
         helper(['form']);
         $rules = [
             'nom' =>
@@ -32,7 +32,7 @@ class SignupController extends BaseController
                     'required' => 'Le nom est un champ obligatoire', 'min_length' => 'Le nom doit etre composé au minimum 2 lettres', 'max_length' => 'Le nom ne doit pas compter plus de 50 caractéres'
                 ]
             ],
-            'prenom' => 
+            'prenom' =>
             [
                 'rules' => 'required|min_length[2]|max_length[50]',
                 'errors' => [
@@ -75,16 +75,16 @@ class SignupController extends BaseController
                 ]
             ],
         ];
-        $file = $this->request->getFile('avatar');
-      
         if ($this->validate($rules)) {
-            $newName = $this->request->getVar('username') . 'Avatar';
-            // $file['allowed_types'] = 'gif|jpg|png';
-            // $file['max_size'] = '100';
-            // $file['max_width'] = '1024';
-            // $file['max_height'] = '768';
-            $file->move('assets/images/users', $newName);
+            if ($this->request->getFile('avatar')->isValid()) {
+                $file = $this->request->getFile('avatar');
+                $newName = $this->request->getVar('username') . 'Avatar';
+                $file->move('assets/images/users', $newName);
+            } else {
+                $newName = "ajouter-avatar";
+            }
             $userModel = new UserModel();
+
             $data = [
                 'nom'     => $this->request->getVar('nom'),
                 'prenom'    => $this->request->getVar('prenom'),
@@ -94,13 +94,12 @@ class SignupController extends BaseController
                 'user_type'    => $this->request->getVar('user_type'),
                 'avatar' => $newName,
             ];
+       
             $userModel->insert($data);
             return redirect()->to('/users');
         } else {
             $data['validation'] = $this->validator;
             return view('users/signup', $data);
-            
         }
     }
-   
 }

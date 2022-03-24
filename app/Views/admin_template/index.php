@@ -47,6 +47,8 @@
 <?php
 $session = \Config\Services::session();
     if(isset($_SESSION['isLoggedIn'])){
+        // print_r($_SESSION);
+       
         echo view('admin_template/side_navbar');
         $this->renderSection("content");
     } 

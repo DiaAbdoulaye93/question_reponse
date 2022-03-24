@@ -1,8 +1,9 @@
+<div class='error_msg'>
 <div class="content p-5">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <img src="assets/images/logginbg.svg" alt="Image" class="img-fluid">
+          <img src="assets/login_Img/<?php echo rand(1, 4); ?>.svg" alt="Image" class="img-fluid">
         </div>
         <div class="col-md-6 contents">
           <div class="row justify-content-center">
@@ -27,17 +28,17 @@
                 
               </div>
               
-              <div class="d-flex mb-5 align-items-center">
+              <div class="d-flex mb-3 align-items-center">
                 <label class="control control--checkbox mb-0"><span class="caption">Se souvenir de moi</span>
-                  <input type="checkbox" checked="checked"/>
+                  <input type="checkbox"/>
                   <div class="control__indicator"></div>
                 </label>
-                <span class="ml-auto"><a href="#" class="forgot-pass">mot de pass oublié ?</a></span> 
+                <span class="ml-auto"><a href="#" class="forgot-pass text-danger">mot de pass oublié ?</a></span> 
               </div>
 
               <input type="submit" value="Connection" class="btn btn-block bg-success">
 
-              <span class="text-center"> Pas encore inscrit ? cliquez <a data-toggle="modal" class="btn" data-target="#addModal">ici </a></span>
+              <span class="text-center"> Pas encore de compte ? <a data-toggle="modal" class="btn text-success" data-target="#addModal">S'inscire </a></span>
          
               <div class="social-login">
                 <a href="#" class="facebook">

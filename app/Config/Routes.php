@@ -35,7 +35,7 @@ $routes->get('/index', 'Home::index');
 $routes->get('/signin', 'SigninController::index');
 $routes->get('/logout', 'SigninController::logout');
 $routes->get('/signup', 'SignupController::index');
-$routes->post('/adduser', 'SignupController::store');
+$routes->post('adduser', 'SignupController::store');
 $routes->get('users', 'UserController::index');
 $routes->get('/profile', 'ProfileController::index',['filter' => 'authGuard']);
 $routes->get('delete/(:num)', 'UserController::delete/$1');

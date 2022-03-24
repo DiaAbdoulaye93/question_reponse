@@ -30,6 +30,7 @@ class SigninController extends BaseController
                     'id' => $data['id'],
                     'nom' => $data['nom'],
                     'username' => $data['username'],
+                     'usertype' => $data['user_type'],
                     'isLoggedIn' => TRUE
                 ];
                 $session->set($ses_data);
@@ -37,11 +38,11 @@ class SigninController extends BaseController
                 return redirect()->to('/index');
             } else {
                 $session->setFlashdata('msg', 'mot de pass incorrect');
-                return redirect()->to('/signin');
+                return redirect()->to('/index');
             }
         } else {
             $session->setFlashdata('msg', 'nom d\'utilisateur incorrect');
-            return redirect()->to('/signin');
+            return redirect()->to('/index');
         }
     }
 
