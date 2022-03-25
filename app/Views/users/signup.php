@@ -2,13 +2,13 @@
 $profil = model('ProfilModel')->findAll();
 helper('form');
 ?>
-<form action="<? // = site_url('/adduser') 
-                ?>" method="post" enctype="multipart/form-data" class="add-user">
+<form action="<?= site_url('/adduser') 
+                ?>" method="post" enctype="multipart/form-data" class="form">
     <div class="row">
         <div class="form-group mb-4 col-md-6">
             <input type="text" id="nom" name="nom" placeholder="Votre nom" value="<?php set_value('nom') ?>" class="form-control shadow <?php if ($validation->getError('nom')) : ?>is-invalid<?php endif ?>">
             <?php if ($validation->getError('nom')) : ?>
-                <div class="invali d-feedback">
+                <div class="invalid-feedback text-danger">
                     <?= $validation->getError('nom') ?>
                 </div>
             <?php endif; ?>
@@ -17,19 +17,19 @@ helper('form');
         <div class="form-group mb-4 col-md-6">
             <input type="text" id="prenom" name="prenom" placeholder="votre prenom" value="<?php set_value('prenom')
                                                                                             ?>" class="form-control shadow <?php if ($validation->getError('prenom')) : ?>is-invalid<?php endif ?>">
-            <div class="invalid-feedback"><?= $validation->getError('prenom') ?></div>
+            <div class="invalid-feedback text-danger"><?= $validation->getError('prenom') ?></div>
         </div>
     </div>
     <div class="row">
         <div class="form-group mb-4 col-md-6">
             <input type="text" id="telephone" name="telephone" placeholder="Numéro de téléphone" value="<?php set_value('telephone')
                                                                                                         ?>" class="form-control shadow <?php if ($validation->getError('telephone')) : ?>is-invalid<?php endif ?>">
-            <div class="invalid-feedback"><?= $validation->getError('telephone') ?></div>
+            <div class="invalid-feedback text-danger"><?= $validation->getError('telephone') ?></div>
         </div>
         <div class="form-group mb-4 col-md-6">
             <input type="text" id="username" name="username" placeholder="nom d'utilisateur" value="<?php set_value('username')
                                                                                                     ?>" class="form-control shadow  <?php if ($validation->getError('username')) : ?>is-invalid<?php endif ?>">
-            <div class="invalid-feedback"><?= $validation->getError('username') ?></div>
+            <div class="invalid-feedback text-danger"><?= $validation->getError('username') ?></div>
         </div>
     </div>
     <div class="row">
@@ -39,7 +39,7 @@ helper('form');
         </div>
         <div class="form-group mb-4 col-md-6">
             <input type="password" id="confirmpassword" name="confirmpassword" placeholder="confirmer le mot de pass choisie" class="form-control shadow  <?php if ($validation->getError('confirmpassword')) : ?>is-invalid<?php endif ?>">
-            <div class="invalid-feedback"><?= $validation->getError('confirmpassword') ?></div>
+            <div class="invalid-feedback text-danger"><?= $validation->getError('confirmpassword') ?></div>
         </div>
     </div>
     <div class="row">
@@ -74,9 +74,9 @@ helper('form');
 </div>
 <script>
     $(document).ready(function() {
-
-        $('.add-user').submit(function(e) {
-
+       
+        $('.form').submit(function(e) {
+            <?= helper('form');?>
             var nom = $("#nom").val();
             var prenom = $("#prenom").val();
             var telephone = $("#telephone").val();
@@ -93,12 +93,14 @@ helper('form');
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url('/adduser') ?>",
+                dataType: 'text',
                 data: {
                     'nom':nom,
                     'prenom':prenom,
                     'telephone':telephone,
                     'username':username,
                     'password':password,
+                    'confirmpassword':confirmpassword,
                     'user_type':user_type
 
                 },
