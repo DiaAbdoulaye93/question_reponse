@@ -76,54 +76,25 @@ helper('form');
     $(document).ready(function() {
 
         $('.data').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            $.ajax(
-                
-                {
-                url:"<?php echo base_url('/adduser') ?>",
+         
+            // var form = $('.data')[0]; // You need to use standard javascript object here
+            // var formData = new FormData(form);
+            var nom = $("#nom").val();
+            // var formData = new FormData(this);
+            $.ajax({
+                url: "<?php echo base_url('/adduser') ?>",
                 type: 'POST',
-                data: formData,
+                data: {nom: nom},
                 success: function(data) {
-                    alert(data)
+                      
+                },
+                error: function() {
+                    alert("Please enter valid email id!");
                 },
                 cache: false,
                 contentType: false,
                 processData: false
             });
-            // var nom = $("#nom").val();
-            // var prenom = $("#prenom").val();
-            // var telephone = $("#telephone").val();
-            // var username = $("#username").val();
-            // var password = $("#password").val();
-            // var confirmpassword = $("#confirmpassword").val();
-            // user_type = $('#user_type option:selected').val();
-            // var data = $(".add-user").serialize().split("&");
-            // var obj = {};
-            // for (var key in data) {
-
-            //     obj[data[key].split("=")[0]] = data[key].split("=")[1];
-            // }
-            // $.ajax({
-            //     type: "POST",
-            //     url: "<?// echo base_url('/adduser') ?>",
-            //     dataType: 'text',
-            //     data:new FormData(this),
-            //     // data: {
-            //     //     'nom': nom,
-            //     //     'prenom': prenom,
-            //     //     'telephone': telephone,
-            //     //     'username': username,
-            //     //     'password': password,
-            //     //     'confirmpassword': confirmpassword,
-            //     //     'user_type': user_type
-
-            //     // },
-            //     success: function(data) {
-            //         console.log(data);
-            //     }
-
-            // }); // you have missed this bracket
             return false;
         });
     });

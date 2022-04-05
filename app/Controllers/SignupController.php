@@ -23,7 +23,7 @@ class SignupController extends BaseController
     public function store()
     {
         // helper(['form']);
-      
+       
         $rules = [
             'nom' =>
             [
@@ -75,6 +75,8 @@ class SignupController extends BaseController
                 ]
             ],
         ];
+        print_r($rules);
+        die;
         if ($this->validate($rules)) {
             if ($this->request->getFile('avatar')->isValid()) {
                 $file = $this->request->getFile('avatar');
@@ -96,7 +98,7 @@ class SignupController extends BaseController
             ];
            
    
-            $userModel->insert($data);
+            $userModel->insert($data);  
             return redirect()->to('/users');
         } else {
             $data['validation'] = $this->validator;

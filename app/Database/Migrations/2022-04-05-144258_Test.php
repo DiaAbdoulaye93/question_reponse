@@ -1,13 +1,12 @@
 <?php
 
-namespace Tests\Support\Database\Migrations;
+namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class ExampleMigration extends Migration
+class Test extends Migration
 {
-    protected $DBGroup = 'tests';
-
+    protected $DBGroup = 'test';
     public function up()
     {
         $this->forge->addField('id');
@@ -21,18 +20,10 @@ class ExampleMigration extends Migration
             'updated_at' => ['type' => 'datetime', 'null' => true],
             'deleted_at' => ['type' => 'datetime', 'null' => true],
         ]);
-
-        $this->forge->addKey('name');
-        $this->forge->addKey('uid');
-        $this->forge->addKey(['deleted_at', 'id']);
-        $this->forge->addKey('created_at');
-
-        $this->forge->createTable('factories');
-        $this->forge->createTable('question');
     }
 
     public function down()
     {
-        $this->forge->dropTable('factories');
+        //
     }
 }
