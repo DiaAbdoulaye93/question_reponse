@@ -75,8 +75,7 @@ class SignupController extends BaseController
                 ]
             ],
         ];
-        print_r($rules);
-        die;
+       
         if ($this->validate($rules)) {
             if ($this->request->getFile('avatar')->isValid()) {
                 $file = $this->request->getFile('avatar');

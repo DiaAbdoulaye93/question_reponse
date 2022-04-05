@@ -39,6 +39,8 @@ $routes->post('adduser', 'SignupController::store');
 $routes->get('users', 'UserController::index');
 $routes->get('/profile', 'ProfileController::index',['filter' => 'authGuard']);
 $routes->get('delete/(:num)', 'UserController::delete/$1');
+// ---------------------------------------------------------------
+$routes->get('question', 'QuestionController::index');
 
 /*
  * --------------------------------------------------------------------
