@@ -1,4 +1,5 @@
 <?php $validation =  \Config\Services::validation();
+$profil = model('ProfilModel')->findAll();
 helper('form');
 ?>
 <form action="<? //= site_url('/adduser')

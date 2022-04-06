@@ -41,6 +41,7 @@ $routes->get('/profile', 'ProfileController::index',['filter' => 'authGuard']);
 $routes->get('delete/(:num)', 'UserController::delete/$1');
 // ---------------------------------------------------------------
 $routes->get('question', 'QuestionController::index');
+$routes->post('addquestion', 'QuestionController::store');
 
 /*
  * --------------------------------------------------------------------
