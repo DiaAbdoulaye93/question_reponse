@@ -57,7 +57,7 @@ class QuestionController extends BaseController
             }else{
                 $session->setFlashdata('error', 'Echec insertion');
             }
-            return redirect()->to('/users');
+            return view('questions/add_question');
         }
         else {
             $data['validation'] = $this->validator;

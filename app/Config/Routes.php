@@ -42,6 +42,7 @@ $routes->get('delete/(:num)', 'UserController::delete/$1');
 // ---------------------------------------------------------------
 $routes->get('question', 'QuestionController::index');
 $routes->post('addquestion', 'QuestionController::store');
+$routes->get('/quizz', 'QuizzController::index');
 
 /*
  * --------------------------------------------------------------------
