@@ -1,18 +1,37 @@
 <?= $this->extend("admin_template/index") ?>
 <?= $this->section("content") ?>
 <?php $validation =  \Config\Services::validation();
+$categories = model('CategorieModel')->findAll();
 helper('form');
-?>
+$session = \Config\Services::session();
+?><script>
+    $(function() {
+        <?php if (session()->has("success")) { ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Great!',
+                text: '<?= session("success") ?>'
+            })
+        <?php }
+        if (session()->has("error")) { ?>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oups!',
+                text: '<?= session("error") ?>'
+            })
+        <?php } ?>
+    });
+</script>
 <div class="container">
     <h1 class="text-center">Parametrage de questions</h1>
-    <form action="<?= site_url('/addquestion')
-                    ?>" method="post">
+    <form action="<?= site_url('/addquestion') ?>" method="post">
         <div class="p-3 m-3 shadow col-md-12 border-2">
             <div class="form-group">
                 <label for="exampleFormControlTextarea1"> Libelle de la question</label>
-                <textarea class="form-control" name="libelle" id="exampleFormControlTextarea1" rows="3" value="<?php set_value('libelle')
-                                                                                            ?>" class="form-control shadow <?php if ($validation->getError('libelle')) : ?>is-invalid<?php endif ?>"></textarea>
-            <div class="invalid-feedback text-danger"><?= $validation->getError('libelle') ?></div>
+                <textarea class="form-control" id="libelle" name="libelle" placeholder="Votre libelle" value="<?php set_value('libelle') ?>" class="form-control shadow <?php if ($validation->getError('libelle')) : ?>is-invalid<?php endif ?>" rows="3"></textarea>
+                <?php if ($validation->getError('libelle')) : ?>
+                    <div class="invalid-feedback text-danger"><?= $validation->getError('libelle') ?></div>
+                <?php endif; ?>
             </div>
 
             <div class="mb-4 col-md-6">

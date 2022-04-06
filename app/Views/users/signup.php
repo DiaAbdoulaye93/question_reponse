@@ -46,11 +46,11 @@ helper('form');
         <div class="form-group mb-4 col-md-6">
             <select name="user_type" id="user_type" class="selectpicker form-control shadow <?php if ($validation->getError('user_type')) : ?>is-invalid<?php endif ?>" style="height:5ch" data-live-search="true">
                 <option>------ Profil d'utilisateur------</option>
-                    <?php foreach ($profil as $OneProfil) : ?>
-                <option value=<?php echo $OneProfil['id']  ?> <?= set_select('user_type',  $OneProfil['id']) ?>>
-                    <?php echo $OneProfil['libelle'] ?>
-                </option>
-            <?php endforeach; ?>
+                <?php foreach ($profil as $OneProfil) : ?>
+                    <option value=<?php echo $OneProfil['id']  ?> <?= set_select('user_type',  $OneProfil['id']) ?>>
+                        <?php echo $OneProfil['libelle'] ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
             <div class="invalid-feedback"><?= $validation->getError('user_type') ?></div>
         </div>
@@ -75,7 +75,7 @@ helper('form');
     $(document).ready(function() {
 
         $('.data').submit(function(e) {
-         
+
             // var form = $('.data')[0]; // You need to use standard javascript object here
             // var formData = new FormData(form);
             var nom = $("#nom").val();
@@ -83,9 +83,11 @@ helper('form');
             $.ajax({
                 url: "<?php echo base_url('/adduser') ?>",
                 type: 'POST',
-                data: {nom: nom},
+                data: {
+                    nom: nom
+                },
                 success: function(data) {
-                      
+
                 },
                 error: function() {
                     alert("Please enter valid email id!");
