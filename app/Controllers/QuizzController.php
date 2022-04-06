@@ -10,8 +10,10 @@ class QuizzController extends BaseController
     public function index()
     {
           $questionModel= new QuestionModel();
-          $reposeModel = new ReponseModel();
-          return view('questions/quizz');
+          $reponseModel = new ReponseModel();
+          $questions['questions'] = $questionModel->orderBy('id', 'DESC')->paginate(1);
+          $questions['pagination_link'] = $questionModel->pager;
+          return view('questions/quizz', $questions);
     }
 
 }
