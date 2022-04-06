@@ -3,13 +3,17 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-
+use App\Models\CategorieModel;
+use App\Models\ReponseModel;
+use App\Models\QuestionModel;
 class QuestionController extends BaseController
 {
     public function index()
     {
         helper(['form']);
-        echo view('questions/add_question');
+        $categoriesModel = new CategorieModel();
+        $categories['categories']= $categoriesModel->findAll();
+        return view('questions/add_question', $categories);
  
     }
     function store(){

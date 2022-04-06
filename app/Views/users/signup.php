@@ -1,5 +1,4 @@
 <?php $validation =  \Config\Services::validation();
-$profil = model('ProfilModel')->findAll();
 helper('form');
 ?>
 <form action="<? //= site_url('/adduser')
@@ -45,8 +44,7 @@ helper('form');
     <div class="row">
         <div class="form-group mb-4 col-md-6">
             <select name="user_type" id="user_type" class="selectpicker form-control shadow <?php if ($validation->getError('user_type')) : ?>is-invalid<?php endif ?>" style="height:5ch" data-live-search="true">
-                <option>------ Profil d'utilisateur------
-                <option>
+                <option>------ Profil d'utilisateur------</option>
                     <?php foreach ($profil as $OneProfil) : ?>
                 <option value=<?php echo $OneProfil['id']  ?> <?= set_select('user_type',  $OneProfil['id']) ?>>
                     <?php echo $OneProfil['libelle'] ?>
