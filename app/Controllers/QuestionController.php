@@ -23,7 +23,7 @@ class QuestionController extends BaseController
         $rules = [
             'libelle' =>
             [
-                'rules' => 'required|min_length[2]|max_length[50]',
+                'rules' => 'required|min_length[2]|max_length[1000]',
                 'errors' => [
                     'required' => 'Le libelle est un champ obligatoire', 'min_length' => 'Le libelle doit etre composé au minimum 2 lettres', 'max_length' => 'Le libelle ne doit pas compter plus de 50 caractéres'
                 ]
@@ -34,17 +34,16 @@ class QuestionController extends BaseController
                 'libelle'     => $this->request->getVar('libelle'),
                 'categorie'     => $this->request->getVar('categorie'),
             ];
-          
+
             $formLength = count($this->request->getVar());
             if ($questionModel->insert($data)) {
-                $questionModel->insertID();
-                die;
+                $question= $questionModel->insertID();
                 for ($i = 1; $i <=  $formLength; $i++) {
-                    while($this->request->getVar('reponse' . $i)) {
-                        $reponses[$i]= [
+                    while ($this->request->getVar('reponse' . $i)) {
+                        $reponses[$i] = [
                             'libelle'     => $this->request->getVar('reponse' . $i),
-                            'point'     => $this->request->getVar('point' . $i),
-                            'question'     => '1',
+                            'point'    => $this->request->getVar('point' . $i),
+                            'question'     => $question,
                             'type_reponse'     => $this->request->getVar('type_reponse'),
                         ];
                         $reponseModel->insert($reponses[$i]);
