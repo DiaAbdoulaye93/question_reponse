@@ -4,17 +4,25 @@
 helper('form');
 $session = \Config\Services::session();
 ?>
-<div class="container">
+<div class="container p-3">
+    <h1 class="text-center">Quizz</h1>
     <div class="card">
         <div class="card-header">
-              <h2>Culture générale</h2>
-          
-            </div>
+            <h1><?= $question[0]['libelle'] ?></h1>
         </div>
-        <div class="card-body">
-          <h1> <?= $questions[0]['libelle'] ?></h1>
-        </div>
+        <?php foreach ($question[1] as $reponse) {
+            $inputType = "checkbox";
+            if ($reponse["type_reponse"] == "simple") {
+                $inputType = "radio";
+            }
+        ?>
+           
+                <input class="form-check-input"  type="<?= $inputType ?>" name="reponse"> <h2><?= $reponse['libelle'];
+                                                                } ?>
+                </h2>
+           
     </div>
+
     <div class="float-right"><?php
                                 if ($pagination_link) {
                                     $pagination_link->setPath('quizz');

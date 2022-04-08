@@ -11,7 +11,9 @@ class QuizzController extends BaseController
     {
           $questionModel= new QuestionModel();
           $reponseModel = new ReponseModel();
-          $questions['questions'] = $questionModel->orderBy('id', 'DESC')->paginate(1);
+          $questions['question']= $questionModel->orderBy('id', 'DESC')->paginate(1);
+          $reponses= $reponseModel->where('question', $questions['question'][0]['id'])->findAll();
+           array_push($questions['question'], $reponses);
           $questions['pagination_link'] = $questionModel->pager;
           return view('questions/quizz', $questions);
     }
