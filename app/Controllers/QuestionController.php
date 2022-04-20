@@ -47,7 +47,7 @@ class QuestionController extends BaseController
                             'libelle'     => $this->request->getVar('reponse' . $i),
                             'point'    => $this->request->getVar('point' . $i),
                             'question'     => $question,
-                            'type_reponse'     => $this->request->getVar('type_reponse'),
+                            'type_reponse'     => $this->request->getVar('type_reponse')
                         ];
                         $reponseModel->insert($reponses[$i]);
                         $i++;

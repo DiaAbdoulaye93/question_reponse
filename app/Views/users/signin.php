@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <img src="assets/login_Img/<?php echo rand(1, 9); ?>.png" alt="Image" class="img-fluid">
+          <img src="assets/login_Img/<?php echo rand(1, 4); ?>.svg" alt="Image" class="img-fluid">
         </div>
         <div class="col-md-6 contents">
           <div class="row justify-content-center">
